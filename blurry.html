@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blurry Image</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sec {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bg {
+        position: absolute;
+        background: url('img.jpg') no-repeat fixed center / cover;
+        z-index: -1;
+        filter: blur(20px);
+        /* because of blur */
+        left: -30px;
+        top: -30px;
+        height: calc(100vh + 50px);
+        width: calc(100% + 50px);
+    }
+
+    .txt {
+        color: #ecf0f1;
+        font-family: monospace;
+        font-weight: bolder;
+        font-size: 2rem;
+    }
+    </style>
+</head>
+
+<body>
+	<!-- html -->
+    <section class="sec">
+        <div class="bg"></div>
+        <div class="txt">
+            0 %
+        </div>
+    </section>
+    <!-- js -->
+    <script type="text/javascript">
+    	/*
+		1. semicolon ;
+
+    	*/
+    	// var
+    	let txt = document.querySelector('.txt');
+    	let bg = document.querySelector('.bg');
+    	let num=0;
+    	// fun()
+    	let blur=()=>{
+
+    		num++
+    		if(num > 99){
+    			clearInterval(blurInterval)
+    		}
+    		// txt add & fade
+    		txt.innerText=`${num} %`;
+    		txt.style.opacity = scale(num,0,100,1,0)
+    		bg.style.filter=`blur(${scale(num,0,100,30,0)}px)`
+    	}
+    	let blurInterval= setInterval(()=>{
+    		blur()
+    	},50)
+    	let scale= (number, inMin, inMax, outMin, outMax) => {
+    return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+    </script>
+</body>
+
+</html>
